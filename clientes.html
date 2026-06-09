@@ -68,6 +68,50 @@
       </tr>`;
     });
   }
+  
+  document.getElementByld('form-cliente').onsubmit=function(e){
+    e.preventDefault();
+    const id = this.dataset.id;
+    const dados = {
+      nome: this.nome.value,
+      cpf: this.cpf.value,
+      telefone: this.telefone.value
+  };
+    const url = id ? `/alterar-cliente/${id}`:'/salvar-cliente';
+    const metodo = id ? 'PUT': 'POST';
+
+    fetch(url, {
+      method: metodo,
+      headers: {'Content-Type': 'aplication/json'},
+      body: JSON.stringify(dados)
+   }).then(() => {
+      alert(id ? "Cliente alterado!" : "Cliente salvo")
+      location.reload();
+   });
+};
+
+function excluirCliente(id){
+  if (confirm("Deseja excluir este cliente?")){
+    fetch(`/excluir-cliente/${id}`,{method:'DELETE'})
+      .then(() => carregarClientes());
+  }
+}
+
+function prepararEdicao(id, nome, cpf, telefone){
+  const form = document.getElementByld('form-cliente');
+  form.dataset.id = id;
+  form.nome.value = nome;
+  form.cpf.value = cpf;
+  form.telefone.value = telefone;
+
+  document.getElementByld('titulo-form').innerText = "Editar Cadastro";
+  const btn = document.getElementByld('btn-salvar');
+  btn.innerText = "Confirmar Alteração";
+  btn.style.background = "orange";
+}
+  
+  carregarClientes();    
+
 </script>
 </body>
 <footer class="rodape">
