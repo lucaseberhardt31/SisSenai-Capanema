@@ -22,7 +22,7 @@
   <div class="container">
     <div class="card">
       <h2>Novo Produto</h2>
-      <form action="salvar-produto"method="POST">
+      <form action="/salvar-produto"method="POST">
         <input type="text" name="descricao" placeholder="Descrição do Produto" required>
         <input type="number" step="0.01" name="preco" placeholder="Preço de Venda" required>
         <input type="number" name="estoque" placeholder="Quantidade em Estoque" required>
@@ -48,10 +48,10 @@
 
   <script>
     fetch('/listar-produtos')
-      .then(res=>res.jonson())
-      .then(produtos=>{
+      .then(res=> res.jonson())
+      .then(produtos=> {
         const corpoTabela = document.getElementByld('lista-produtos');
-        clientes.forEach(c=>{
+        produtos.forEach(c=>{
           corpoTabela.innerHTML+=
             <tr>
                <td>${p.descricao}</td>
